@@ -1,11 +1,21 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { API_KEY } from '../data'
+
+let popular = []
+
+
+
+
 
 export const seriesSlice = createSlice({
     name:'series',
     initialState: {
-        value: 0,
+        popular: [] ,
+
     },
     reducers: {
+        // initPopularSeries: (state, action ) {
+        // }
     },
 })
 
@@ -31,6 +41,8 @@ export const seriesSlice = createSlice({
 
 
 
-// export const selectCount = (state) => state.counter.value
+export const selectPopular = (state) => state.series.popular
 
-// export default counterSlice.reducer
+export default seriesSlice.reducer
+
+

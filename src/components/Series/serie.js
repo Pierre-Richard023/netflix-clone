@@ -17,7 +17,7 @@ const Serie = () => {
     const [episodes, setEpisodes] = useState([])
     const [similar, setSimilar] = useState([])
 
-    useEffect(() => {
+    useEffect(() => { 
 
         return async () => {
 
@@ -25,6 +25,7 @@ const Serie = () => {
                 return res.json()
             }).then(async (res) => {
                 await setSerie(res)
+                console.log(res)
             })
 
             // await fetch(`https://api.themoviedb.org/3/tv/${id}/similar?api_key=${API_KEY}&language=en-US`).then((res) => {
@@ -70,8 +71,8 @@ const Serie = () => {
                             )}
                         </select>
 
-                        <strong> {serie.vote_average}</strong>
-                        <strong>{serie.first_air_date}</strong>
+                        <strong>&nbsp;  {serie.vote_average} &nbsp; </strong>
+                        <strong>&nbsp; {serie.first_air_date} &nbsp; </strong> 
                     </div>
 
                     <div className="synopsis">

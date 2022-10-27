@@ -9,6 +9,8 @@ const Favorites = () => {
     const films = useSelector(selectFavoritesFilm);
     const series = useSelector(selectFavoritesSerie);
 
+    
+
     const dispatch = useDispatch();
 
     return (

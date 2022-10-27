@@ -9,6 +9,7 @@ import Series from './components/Series/series'
 import Serie from './components/Series/serie';
 import Film from './components/Films/film';
 import Favorites from './components/Favorites/favorites';
+import Search from './components/Search/search';
 
 
 function App() {
@@ -19,11 +20,11 @@ function App() {
 
       <div className="header">
         <Link className='logo' to="/">NETFLIX</Link>
-        <Link className='nav-link ' to="/series">Series</Link>
-        <Link className='nav-link ' to="/films">Films</Link>
+        <Link className='' to="/series">Series</Link>
+        <Link className='' to="/films">Films</Link>
         <div className='right'>
-          <Link className='nav-link ' to="/films">Recherche</Link>
-          <Link className='nav-link ' to="/favorites">Mes Favoris</Link>
+          <Link className='' to="/search">Recherche</Link>
+          <Link className='' to="/favorites">Mes Favoris</Link>
         </div>
       </div>
 
@@ -34,6 +35,7 @@ function App() {
         <Route path='/films' element={<Films />} ></Route>
         <Route path='/film/:name' element={<Film />} ></Route>
         <Route path='/favorites' element={<Favorites />}></Route>
+        <Route path='/search' element={<Search />}></Route>
       </Routes>
 
 
