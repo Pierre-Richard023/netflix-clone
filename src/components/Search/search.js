@@ -42,21 +42,23 @@ const Search = () => {
         fetch(`https://api.themoviedb.org/3/search/multi?api_key=${API_KEY}&language=en-US&query=${search}&page=${p}&include_adult=false`).then((res) => {
             return res.json()
         }).then(async (res) => {
-            for ( let r of res.results )
-                await setResults ( tab => [...tab, r])
+            for (let r of res.results)
+                await setResults(tab => [...tab, r])
         })
         await setResultsPage(p)
     }
 
-    
-    return (
-        <div className="container">
 
-            <div className="">
+    return (
+        <div className="container-search">
+
+            <div className="search-bar">
+                <h1>Recherche Films et Series</h1>
                 <input type="text" name="search" onChange={(e) => setSearch(e.target.value)} />
             </div>
 
-            <div className="" >
+            <div className="container" >
+
                 {
                     results && results.map((val, i) =>
                         <div className="search-list" key={i}>
@@ -64,9 +66,9 @@ const Search = () => {
 
                                 <div key={i} className="card">
                                     <div className="view">
-                                        { val.poster_path && <img src={`${Image_Link}${val.poster_path}`} alt={val.title} /> }
-                                        { val.poster_path == null && <img src="./Images/noPicture.jpg" alt={val.title} /> }
-                                        
+                                        {val.poster_path && <img src={`${Image_Link}${val.poster_path}`} alt={val.title} />}
+                                        {val.poster_path == null && <img src="./Images/noPicture.jpg" alt={val.title} />}
+
                                     </div>
                                     <div className="title">
                                         <Link to={`/film/${val.title}`} state={{ id: val.id }} >{val.title}</Link>
@@ -77,8 +79,8 @@ const Search = () => {
 
                                 <div key={i} className="card">
                                     <div className="view">
-                                        { val.poster_path && <img src={`${Image_Link}${val.poster_path}`} alt={val.name} /> }
-                                        
+                                        {val.poster_path && <img src={`${Image_Link}${val.poster_path}`} alt={val.name} />}
+
                                     </div>
                                     <div className="title">
                                         <Link to={`/serie/${val.name}`} state={{ id: val.id }} >{val.name}</Link>
@@ -92,7 +94,7 @@ const Search = () => {
                 }
             </div>
             {
-                resultsNbPages > resultsPage && <button typeof="button" onClick={moreResults} >PLus de resultats</button>
+                resultsNbPages > resultsPage && <button className="more-search" typeof="button" onClick={moreResults} >Plus de resultats ....</button>
             }
 
         </div>
