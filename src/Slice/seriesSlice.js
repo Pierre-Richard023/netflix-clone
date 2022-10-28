@@ -14,6 +14,12 @@ export const fetchPopularSeries = createAsyncThunk('series/fetchPopularSeries', 
     }).then(res => res.results)
 })
 
+export const fetchLastestSeries = createAsyncThunk('films/fetchLastestSeries', () => {
+    return fetch(`https://api.themoviedb.org/3/tv/on_the_air?api_key=${API_KEY}&language=en-US&page=1`).then((res) => {
+        return res.json()
+    }).then(res => res.results)
+})
+
 export const fetchActionSeries = createAsyncThunk('series/fetchActionSeries', () => {
     return fetch(`https://api.themoviedb.org/3/discover/tv?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&page=1&with_genres=10759`)
         .then((res) => {
@@ -72,6 +78,9 @@ export const seriesSlice = createSlice({
         popular: [],
         loadingPopular: false,
         errorPopular: null,
+        latest:[],
+        loadingLatest: false,
+        errorLatest: null,
         actions: [],
         loadingAction: false,
         errorAction: null,
@@ -116,7 +125,6 @@ export const seriesSlice = createSlice({
             state.errorSerieSelect = action.error.message
         })
 
-
         // Genre : Popular
         builder.addCase(fetchPopularSeries.pending, (state) => {
             state.loadingPopular = true
@@ -130,6 +138,21 @@ export const seriesSlice = createSlice({
             state.loadingPopular = false
             state.popular = []
             state.errorPopular = action.error.message
+        })
+
+        // lastest
+        builder.addCase(fetchLastestSeries.pending, (state) => {
+            state.loadingLatest = true
+        })
+        builder.addCase(fetchLastestSeries.fulfilled, (state, action) => {
+            state.loadingLatest = false
+            state.latest = action.payload
+            state.errorLatest = ''
+        })
+        builder.addCase(fetchLastestSeries.rejected, (state, action) => {
+            state.loadingLatest = false
+            state.latest = []
+            state.errorLatest = action.error.message
         })
 
         // Genre : Action
