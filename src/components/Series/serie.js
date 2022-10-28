@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { Link, useLocation } from "react-router-dom"
 import { API_KEY, Image_Link } from "../../data"
 import { useDispatch, useSelector } from 'react-redux'
-import { addSerie } from "../Favorites/favoritesSlice"
+import { addSerie } from "../../Slice/favoritesSlice"
 import { fetchSerieSelected } from "../../Slice/seriesSlice"
 
 import Slider from 'react-slick'
@@ -33,14 +33,25 @@ const Serie = () => {
 
 
     useEffect(() => {
-        fetch(`https://api.themoviedb.org/3/tv/${serie.id}/season/${saisonNb}?api_key=${API_KEY}&language=en-US`).then((res) => {
+
+
+        fetch(`https://api.themoviedb.org/3/tv/${id}/similar?api_key=${API_KEY}&language=en-US&page=1`).then((res) => {
+            return res.json()
+        }).then(async res => {
+            await setSimilar(res.results)
+        })
+
+    }, [id])
+
+    useEffect(() => {
+        fetch(`https://api.themoviedb.org/3/tv/${id}/season/${saisonNb}?api_key=${API_KEY}&language=en-US`).then((res) => {
             return res.json()
         }).then(async (res) => {
             await setSaison(res)
             await setLoading(true)
         })
 
-    }, [serie, saisonNb])
+    }, [id, saisonNb])
 
 
     const settings = {
@@ -110,7 +121,7 @@ const Serie = () => {
 
 
                     </div>
-                    <div className="saison-cover">
+                    <div className="cover">
                         {saison.poster_path && <img src={`${Image_Link}${saison.poster_path}`} alt={saison.name} />}
                     </div>
                 </div>
